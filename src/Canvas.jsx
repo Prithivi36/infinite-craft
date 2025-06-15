@@ -1,6 +1,5 @@
 import React from "react"
 import './App.css'
-import targImg from "./static/target.svg"
 import WordLib from "./WordLib";
 import Targets from "./Targets";
 import Word from "./Word";
@@ -28,7 +27,7 @@ function Canvas() {
   return (
     <>
     <div className=" row m-0 vh-100 text-light">
-
+    {/* <h1 className="modern-heading ">Meta Craft</h1> */}
             {target && 
                 <Targets setTarget={setTarget} />
             }

@@ -45,6 +45,7 @@
 
 .search::placeholder{
   color: antiquewhite;
+  padding: 10px;
 }
 .word{
   list-style: none;
@@ -56,5 +57,5 @@
 }
 .canvas{
   position: relative;
-  
+
 }
