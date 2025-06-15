@@ -1,6 +1,6 @@
 function Word(props) {
   return (
-    <div draggable className="word py-2 m-0 d-flex  align-items-center col px-4 rounded-3 border"
+    <div draggable={props.drag} className="word py-2 m-0 d-flex  align-items-center col px-4 rounded-3 border"
         onDragStart={(e)=>e.dataTransfer.setData("text/plain",props.w)}
     >
         <p className="m-0 p-0">{props.w}</p>

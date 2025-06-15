@@ -8,6 +8,23 @@ import Word from "./Word";
 function Canvas() {
     const [target,setTarget]=React.useState(false);
     const [dropped,setDropped]=React.useState([]);
+    const [draggingInd,setDraggingInd]=React.useState(null);
+
+    function handleMouseMove(e){
+        e.preventDefault()
+        if(draggingInd!=null){
+            const tmp = [...dropped]
+            tmp[draggingInd]={
+                ...tmp[draggingInd],
+                x : e.clientX,
+                y : e.clientY
+            }
+            setDropped(tmp);
+        }
+    }
+    function handleMouseup(){
+        setDraggingInd(null);
+    }
   return (
     <>
     <div className=" row m-0 vh-100 text-light">
@@ -16,6 +33,8 @@ function Canvas() {
                 <Targets setTarget={setTarget} />
             }
             <div className="bg-black canvas col-12 col-md"
+                onMouseUp={handleMouseup}
+                onMouseMove={handleMouseMove}
                 onDragOver={(e)=>e.preventDefault()}
                 onDrop={(e)=>{
                     e.preventDefault()
@@ -41,8 +60,25 @@ function Canvas() {
                             left: item.x,
                             transform: 'translate(-50%, -50%)',
                             }}
+                            onMouseDown={(e)=>{
+                                
+                                e.preventDefault();
+                                if(e.ctrlKey){
+                    
+                                    const x = e.clientX;
+                                    const y = e.clientY;
+
+                                    setDropped((prev) => {
+                                        const newDropped = [...prev, {data:item.data,x,y}];
+                                        setDraggingInd(newDropped.length - 1);
+                                        return newDropped;
+                                    });
+
+                                }else{
+                                    setDraggingInd(index)}}
+                                }
                         >
-                            {<Word w={item.data}/>}
+                            {<Word w={item.data} drag={false}/>}
                         </div>
                     ))}
             </div>

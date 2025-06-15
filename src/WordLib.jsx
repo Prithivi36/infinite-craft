@@ -58,7 +58,7 @@ function WordLib() {
             {
                 words.map((w,i)=>{
                     return (
-                        <Word key={i} w={w} />
+                        <Word key={i} w={w} drag={true} />
                     )
                 })
             }
