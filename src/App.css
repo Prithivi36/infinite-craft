@@ -8,7 +8,22 @@
   width: 400px;
   border-left: white 1px solid;
   position: relative;
+  height: 100vh;
 }
+@media (max-width: 768px) {
+  .word-lib {
+    width: 100%;
+    border-left: none;
+    border-top: white 1px solid;
+  }
+  .canvas{
+    height: 60vh;
+  }
+  .word-lib{
+    height: 40vh;
+  }
+}
+
 .target-toggler-close{
   z-index: 100;
   position: absolute;
