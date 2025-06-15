@@ -46,3 +46,15 @@
 .search::placeholder{
   color: antiquewhite;
 }
+.word{
+  list-style: none;
+  list-style-type: none;
+}
+.word-container{
+  overflow: scroll;
+  scrollbar-width: none; 
+}
+.canvas{
+  position: relative;
+  
+}
