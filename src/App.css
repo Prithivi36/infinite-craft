@@ -5,6 +5,7 @@
   left: 20px;
 }
 .word-lib{
+  position: relative;
   width: 400px;
   border-left: white 1px solid;
   position: relative;
@@ -59,4 +60,20 @@
 .canvas{
   position: relative;
 
+}
+.logo{
+  position: absolute;
+  z-index: 100;
+  width: 100px;
+  height: 250px;
+  top: 30px;
+  left: -120px;
+}
+.logo-sm{
+  position: absolute;
+  z-index: 100;
+  width: 100px;
+  height: 250px;
+  top: 30px;
+  right: 10px;
 }

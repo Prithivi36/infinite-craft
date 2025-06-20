@@ -3,6 +3,7 @@ import './App.css'
 import WordLib from "./WordLib";
 import Targets from "./Targets";
 import Word from "./Word";
+import logo from "./static/logo.svg"
 
 function Canvas() {
     const [target,setTarget]=React.useState(false);
@@ -56,7 +57,9 @@ function Canvas() {
             {target && 
                 <Targets setTarget={setTarget} />
             }
-            
+            <div className="logo-sm d-md-none">
+                <img className="img-fluid" src={logo} alt="" />
+            </div>   
             <div className="bg-black canvas col-12 col-md"
                 onMouseMove={(handleMouseMove)}
                 onDragOver={(e)=>e.preventDefault()}

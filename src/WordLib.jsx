@@ -1,4 +1,5 @@
 import Word from "./Word"
+import logo from './static/logo.svg'
 
 function WordLib() {
     const words =[
@@ -64,7 +65,10 @@ function WordLib() {
         "🪖 Helmet"
     ]
   return (
-    <div className="col-3 d-flex flex-column bg-black p-md-5 gap-4 word-lib p-4 ">
+      <div className="col-3 d-flex flex-column bg-black p-md-5 gap-4 word-lib p-4 ">
+        <div className="logo">
+            <img className="img-fluid" src={logo} alt="" />
+        </div>
         <div className="bg-glass row p-2 py-md-3 gap-2 px-md-3 word-container rounded-3 h-100">
 
             {
