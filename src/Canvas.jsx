@@ -21,13 +21,36 @@ function Canvas() {
             setDropped(tmp);
         }
     }
-    function handleMouseup(){
+    function handleMouseup(e){
+
         setDraggingInd(null);
+    }
+    function isOverlapping(x, y, cx, cy, threshold = 50) {
+    return (
+        Math.abs(x - cx) <= threshold &&
+        Math.abs(y - cy) <= threshold
+    );
+}
+    function handleMerge(e){
+        const x = e.clientX
+        const y = e.clientY
+        const tmp = [...dropped]
+
+        for(let i = 0 ; i<tmp.length ; i++){
+            if(i==draggingInd)continue
+            const cx=tmp[i].x
+            const cy=tmp[i].y
+
+            if (isOverlapping(x, y, cx, cy, 25)) {
+                tmp[i].data+=" "+tmp[draggingInd].data
+                tmp.splice(draggingInd,1)
+            }
+        }
+        setDropped(tmp);
     }
   return (
     <>
     <div className=" row m-0 vh-100 text-light">
-    {/* <h1 className="modern-heading ">Meta Craft</h1> */}
             {target && 
                 <Targets setTarget={setTarget} />
             }
@@ -44,7 +67,7 @@ function Canvas() {
 
                     setDropped((prev)=> [...prev,{data,x,y}]);
 
-                    console.log(dropped);
+                    console.log("dropped into canvas");
                 }}
             >
                 {!target && <button onClick={()=>setTarget(true)} className="target-toggler-open btn rounded-5 btn-outline-light">
@@ -59,8 +82,11 @@ function Canvas() {
                             left: item.x,
                             transform: 'translate(-50%, -50%)',
                             }}
+                            onMouseUp={(e)=>{
+                                handleMerge(e)
+                            }}
                             onMouseDown={(e)=>{
-                                
+                                console.log("downed")
                                 e.preventDefault();
                                 if(e.ctrlKey){
                     
