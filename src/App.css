@@ -31,7 +31,8 @@
   right: 20px;
 }
 .target-tab{
-  position: relative;
+  position: absolute;
+  z-index: 101;
 }
 .search {
   border: 2px solid white;

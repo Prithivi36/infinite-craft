@@ -21,17 +21,15 @@ function Canvas() {
             setDropped(tmp);
         }
     }
-    function handleMouseup(e){
 
-        setDraggingInd(null);
-    }
     function isOverlapping(x, y, cx, cy, threshold = 50) {
-    return (
-        Math.abs(x - cx) <= threshold &&
-        Math.abs(y - cy) <= threshold
-    );
-}
-    function handleMerge(e){
+        return (
+            Math.abs(x - cx) <= threshold &&
+            Math.abs(y - cy) <= threshold
+        );
+    }
+
+    function handleMouseUp(e){
         const x = e.clientX
         const y = e.clientY
         const tmp = [...dropped]
@@ -47,16 +45,20 @@ function Canvas() {
             }
         }
         setDropped(tmp);
+        setDraggingInd(null)
     }
+
+
   return (
     <>
     <div className=" row m-0 vh-100 text-light">
+
             {target && 
                 <Targets setTarget={setTarget} />
             }
+            
             <div className="bg-black canvas col-12 col-md"
-                onMouseUp={handleMouseup}
-                onMouseMove={handleMouseMove}
+                onMouseMove={(handleMouseMove)}
                 onDragOver={(e)=>e.preventDefault()}
                 onDrop={(e)=>{
                     e.preventDefault()
@@ -70,42 +72,45 @@ function Canvas() {
                     console.log("dropped into canvas");
                 }}
             >
-                {!target && <button onClick={()=>setTarget(true)} className="target-toggler-open btn rounded-5 btn-outline-light">
-                    <i className="bi bullseye bi-bullseye"></i>
-                    </button>}
-                    {dropped.map((item, index) => (
-                        <div
-                            key={index}
-                            style={{
-                            position: 'absolute',
-                            top: item.y,
-                            left: item.x,
-                            transform: 'translate(-50%, -50%)',
-                            }}
-                            onMouseUp={(e)=>{
-                                handleMerge(e)
-                            }}
-                            onMouseDown={(e)=>{
-                                console.log("downed")
-                                e.preventDefault();
-                                if(e.ctrlKey){
-                    
-                                    const x = e.clientX;
-                                    const y = e.clientY;
+                    {!target && <button onClick={()=>setTarget(true)} className="target-toggler-open btn rounded-5 btn-outline-light">
+                    <i className="bi bullseye bi-bullseye"></i></button>}
 
-                                    setDropped((prev) => {
-                                        const newDropped = [...prev, {data:item.data,x,y}];
-                                        setDraggingInd(newDropped.length - 1);
-                                        return newDropped;
-                                    });
+                    {/* items */}
+                        {dropped.map((item, index) => (
+                            <div
+                                key={index}
+                                style={{
+                                    position: 'absolute',
+                                    top: item.y,
+                                    left: item.x,
+                                    transform: 'translate(-50%, -50%)',
+                                }}
 
-                                }else{
-                                    setDraggingInd(index)}}
-                                }
-                        >
-                            {<Word w={item.data} drag={false}/>}
-                        </div>
-                    ))}
+                                onMouseUp={(e)=>{
+                                    handleMouseUp(e)
+                                }}
+                                
+                                onMouseDown={(e)=>{
+                                    console.log("downed")
+                                    e.preventDefault();
+                                    if(e.ctrlKey){
+                        
+                                        const x = e.clientX;
+                                        const y = e.clientY;
+
+                                        setDropped((prev) => {
+                                            const newDropped = [...prev, {data:item.data,x,y}];
+                                            setDraggingInd(newDropped.length - 1);
+                                            return newDropped;
+                                        });
+
+                                    }else{
+                                        setDraggingInd(index)}}
+                                    }
+                            >
+                                {<Word w={item.data} drag={false}/>}
+                            </div>
+                        ))}
             </div>
             <WordLib />
     </div>
